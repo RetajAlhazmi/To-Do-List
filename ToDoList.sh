@@ -66,4 +66,5 @@ case $choice in
     5) show_date_time ;;  # If 5, call the show_date_time function
     0) echo "Goodbye!"; exit ;;  # If 0, print goodbye and exit the loop/script
     *) echo "Invalid choice." ;; # For any other input, show an error message
-
+   esac
+done
