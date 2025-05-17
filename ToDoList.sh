@@ -42,7 +42,28 @@ show_date_time() {
 }
 
 # Show welcome message - Rana
-
+echo "Small steps, big wins — Let’s get started."
 # Main program loop - Rana
+while true; 
+do
+echo ""  # Print an empty line for spacing and better readability 
+echo "Choose an action:"  # Display menu prompt
+echo "1) Add a task"      # Option 1: Call add_task function
+echo "2) View tasks"      # Option 2: Call view_tasks function
+echo "3) Complete a task" # Option 3: Call complete_task function
+echo "4) Show number of tasks"   # Option 4: Call count_tasks function
+echo "5) Show current date and time" # Option 5: Call show_date_time
+echo "0) Exit"            # Option 0: Exit the script
 
+read choice               # Read the user's input (menu selection)
+
+# Use a case statement to handle different user choices
+case $choice in
+    1) add_task ;;        # If the user enters 1, call the add_task function
+    2) view_tasks ;;      # If 2, call the view_tasks function
+    3) complete_task ;;   # If 3, call the complete_task function
+    4) count_tasks ;;     # If 4, call the count_tasks function
+    5) show_date_time ;;  # If 5, call the show_date_time function
+    0) echo "Goodbye!"; exit ;;  # If 0, print goodbye and exit the loop/script
+    *) echo "Invalid choice." ;; # For any other input, show an error message
 
