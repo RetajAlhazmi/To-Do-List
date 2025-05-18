@@ -28,8 +28,47 @@ fi
 
 # 3.Complete a task (move from pending to complete) - Huda
 complete_task() {
+if [ ! -s "$PENDING_FILE" ]; then        # Check if the pending tasks file is empty or doesn't exist
+echo "No tasks to complete."
+return
+fi
 
-}
+echo "Pending tasks:"                                # Display the list of pending tasks
+nl -w1 -s'. ' "$PENDING_FILE"                        # Number and list each pending task
+echo "Enter task number to mark as complete:"        # Prompt the user to enter a task number
+read task_number                                     # Read the task number from user input
+
+if echo "$task_number" | grep -qE '^[0-9]+$'; then   # Check if input is a valid positive integer
+ completed_line=$(sed -n "${task_number}p" "$PENDING_FILE")  # Get the task line from the file
+
+if [ -z "$completed_line" ]; then                # Check if the task number is invalid
+echo "Invalid task number."
+return
+fi
+echo "$completed_line" >> "$COMPLETED_FILE"      # Add the completed task to the completed file
+sed -i "${task_number}d" "$PENDING_FILE"         # Remove the task from the pending file
+
+messages=(                                       # Define motivational messages array
+"Great job! Keep up the awesome work! 💪"
+"Well done! You're one step closer to success! 🚀"
+"Task completed! You're doing amazing! 👏"
+"Excellent work! Stay focused and keep pushing forward! ✅"
+"Proud of your progress! Keep going strong! 🌟"
+"Another task down! You're unstoppable! ✨"
+"You're crushing it! Keep up the momentum! 💼"
+"Success is built one task at a time — and you're doing it! 🏗️"
+"Impressive! Keep showing up and getting it done! 🔥"
+"Fantastic! You're building great habits! 🌈"
+)
+random_index=$((RANDOM % ${#messages[@]}))       # Pick a random index from the messages array
+echo "Task completed! ${messages[$random_index]}" # Display the selected motivational message
+
+git add "$PENDING_FILE" "$COMPLETED_FILE"        # Stage both updated files
+git commit -m "Completed task: $completed_line"  # Commit with a message about the completed task
+else
+echo "Invalid number."                           # Handle invalid (non-numeric) input
+    fi
+} }
 
 # 4.Show number of tasks - Jood
 count_tasks() {
