@@ -33,12 +33,24 @@ complete_task() {
 
 # 4.Show number of tasks - Jood
 count_tasks() {
+    pending_count=0 # Initial value for pending tasks counter
+    completed_count=0 # Initial value for completed tasks counter
 
+    if [ -f "$PENDING_FILE" ]; then # If the pending tasks file exists
+        pending_count=$(wc -l < "$PENDING_FILE") # Count the number of lines in the file
+    fi
+
+    if [ -f "$COMPLETED_FILE" ]; then # If the completed tasks file exists
+        completed_count=$(wc -l < "$COMPLETED_FILE") # Count the number of lines in the file
+    fi
+
+    echo "Pending tasks: $pending_count" # Print the number of pending tasks
+    echo "Completed tasks: $completed_count" # Print the number of completed tasks
 }
 
 # 5.Show current date and time -Jood
 show_date_time() {
-
+echo "Current date and time: $(date)" # Print the current date and time using the shell command 'date'
 }
 
 # Show welcome message - Rana
