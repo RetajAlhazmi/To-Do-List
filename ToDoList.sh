@@ -68,7 +68,7 @@ git commit -m "Completed task: $completed_line"  # Commit with a message about t
 else
 echo "Invalid number."                           # Handle invalid (non-numeric) input
     fi
-} }
+}
 
 # 4.Show number of tasks - Jood
 count_tasks() {
